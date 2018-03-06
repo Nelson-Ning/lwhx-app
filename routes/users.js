@@ -11,7 +11,7 @@ router.post('/doLogin', function(req, res, next) {
     user.doLogin(req, res, next);
 });
 
-router.post('/judgeToken', function(req, res, next) {
+router.get('/judgeToken', function(req, res, next) {
     user.judgeToken(req, res, next);
 });
 
