@@ -7,8 +7,12 @@ router.get('/', function(req, res, next) {
     res.send('respond with a resource');
 });
 
-router.get('/getUserAuth', function(req, res, next) {
-    user.getUserAuth(req, res, next);
+router.post('/doLogin', function(req, res, next) {
+    user.doLogin(req, res, next);
+});
+
+router.post('/judgeToken', function(req, res, next) {
+    user.judgeToken(req, res, next);
 });
 
 module.exports = router;
