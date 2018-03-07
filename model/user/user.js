@@ -20,10 +20,15 @@ module.exports = {
                     jsonWrite(res, obj);
                 } else {
                     connection.query(sql.getUserAuth, [result[0].user_id], (err, result) => {
-                        result[0]['code'] = 200;
-                        obj['userInfo'] = result[0];
+                        let obj_ = {};
+                        obj_['code'] = 200;
+                        obj_['name'] = result[0].username;
+                        obj_['level'] = result[0].level;
+                        obj_['message'] = null;
+                        obj['userInfo'] = obj_;
+
                         res.cookie('token', token.createToken(result[0], 60 * 60 * 24), {
-                            maxAge: 60 * 60 * 24
+                            maxAge: 60 * 60 * 24 * 1000
                         });
                         jsonWrite(res, obj);
                     })
@@ -46,7 +51,7 @@ module.exports = {
             return
         }
         if (obj) {
-            ret['username'] = obj.payload.data.username;
+            ret['name'] = obj.payload.data.username;
             ret['level'] = obj.payload.data.level;
             ret['code'] = 200;
             obj_['userInfo'] = ret;

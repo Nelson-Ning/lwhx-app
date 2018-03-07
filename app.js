@@ -4,10 +4,8 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-
 var routes = require('./routes/index');
 var users = require('./routes/users');
-
 
 var app = express();
 
@@ -26,9 +24,9 @@ app.use(cookieParser());
 //app.use(express.static(path.join(__dirname, 'public')));
 
 //设置路由
+app.all('/api/*', users.requireAuthentication);
 app.use('/', routes);
 app.use('/api/user/', users);
-
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
@@ -37,7 +35,9 @@ app.use(function(req, res, next) {
 });
 
 // error handlers
-
+var requireAuthentication = function() {
+  console.log(1);
+}
 // development error handler
 // will print stacktrace
 if (app.get('env') === 'development') {
