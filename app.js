@@ -6,7 +6,10 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var routes = require('./routes/index');
 var users = require('./routes/users');
-
+var notice = require('./routes/notice');
+var message = require('./routes/message');
+var college = require('./routes/college');
+var topic = require('./routes/topic');
 var app = express();
 
 // view engine setup
@@ -27,6 +30,10 @@ app.use(cookieParser());
 app.all('/api/*', users.requireAuthentication);
 app.use('/', routes);
 app.use('/api/user/', users);
+app.use('/api/notice/', notice);
+app.use('/api/message/', message);
+app.use('/api/college/', college);
+app.use('/api/topic/', topic);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
