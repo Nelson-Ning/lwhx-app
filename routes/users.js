@@ -58,6 +58,12 @@ router.get('/judgeLogin', function(req, res, next) {
   user.judgeLogin(req, res, next);
 });
 
+router.post('/addTeacherInformation', function(req, res, next) {
+  user.addTeacherInformation(req, res, next);
+});
 
+router.get('/getTeacherInformation', function(req, res, next) {
+  user.getTeacherInformation(req, res, next);
+});
 
 module.exports = router;

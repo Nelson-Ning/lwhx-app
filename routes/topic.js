@@ -20,4 +20,23 @@ router.get('/getTopic', function(req, res, next) {
 	Topic.getTopic(req, res, next);
 });
 
+router.get('/getAllTopic', function(req, res, next) {
+	Topic.getAllTopic(req, res, next);
+});
+
+router.post('/selectedTopic', function(req, res, next) {
+	Topic.selectedTopic(req, res, next);
+});
+
+router.get('/getselectedStudent', function(req, res, next) {
+	Topic.getselectedStudent(req, res, next);
+});
+
+router.get('/getselectStudent', function(req, res, next) {
+	Topic.getselectStudent(req, res, next);
+});
+
+router.get('/getCompleteTopic', function(req, res, next) {
+	Topic.getCompleteTopic(req, res, next);
+});
 module.exports = router;

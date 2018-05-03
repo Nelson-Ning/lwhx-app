@@ -13,13 +13,14 @@ module.exports = {
             var channel = req.query.channel;
             if (channel) {
                 channel = channel.split(',');
-                var sql = "SELECT notice.id, notice.title, notice.time, notice.publisher, notice.content, notice.status, notice.channel from notice where";
+                var sql = "SELECT notice.id, notice.title, notice.time, notice.publisher, notice.content, notice.status, notice.channel from notice where ";
                 for (let i = 0; i < channel.length; i++) {
                     sql += ` channel like '%${channel[i]}%'`;
                     if (i < channel.length - 1) {
                         sql += ' or ';
                     }
                 }
+                sql += ' and status != 0';
                 connection.query(sql, (err, result) => {
                     if (result) {
                         result.map((currentValue, index, arr) => (currentValue.time = toTime(currentValue.time)));

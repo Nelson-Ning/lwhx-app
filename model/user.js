@@ -127,5 +127,39 @@ module.exports = {
             }
             jsonWrite(res, obj_);
         }
+    },
+    addTeacherInformation: (req, res, next) => {
+        var param = req.body;
+        pool.getConnection((err, connection) => {
+            connection.query(`SELECT * from teacher_information where user_id = ${param.user_id}`, (err, result) => {
+                if (result && result.length === 0) {
+                    connection.query(`INSERT INTO teacher_information (user_id,name,summary,title,good) VALUES ('${param.user_id}','${param.name}','${param.summary}','${param.title}','${param.good}')`, (err, result) => {
+                        if (result) {
+                            jsonWrite(res, result);
+                        }
+                    })
+                } else {
+                    connection.query(`UPDATE teacher_information SET name = '${param.name}' , summary = '${param.summary}' , title = '${param.title}' , good = '${param.good}' WHERE user_id = ${param.user_id} `, (err, result) => {
+                        if (result) {
+                            jsonWrite(res, result);
+                        }
+                    })
+                }
+                connection.release();
+            })
+        })
+    },
+    getTeacherInformation: (req, res, next) => {
+        var user_id = req.query.user_id;
+        if (user_id) {
+            pool.getConnection((err, connection) => {
+                connection.query(`SELECT * from teacher_information where user_id = '${user_id}' `, (err, result) => {
+                    if (result) {
+                        jsonWrite(res, result);
+                    }
+                })
+                connection.release();
+            })
+        }
     }
 }
